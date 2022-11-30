@@ -63,7 +63,6 @@ RUN chmod +x ~/app/activate.sh
 RUN chmod +x ~/app/entrypoint.sh
 RUN chmod +x ~/app/gui.sh
 RUN chmod +x ~/app/run.sh
-RUN chmod +x ~/app/supervisord.sh
 
 # Make the burp user the owner of the app files
 RUN chown burp:burp ~/app -R
