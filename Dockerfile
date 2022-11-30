@@ -67,7 +67,6 @@ RUN chown burp:burp ~/app -R
 RUN chown burp:burp ~/.java -R
 RUN chown burp:burp ~/.BurpSuite -R
 RUN chown burp:burp ~/.cache -R
-RUN chown burp:burp ~/.config -R
 
 # change the burp password to 'burp'
 RUN echo 'burp:burp' | chpasswd
