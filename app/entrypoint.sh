@@ -10,6 +10,16 @@ ACTIVATE=${ACTIVATE:-no}
 RUN_NOVNC=${RUN_NOVNC:-yes}
 RUN_SUPERVISORD=${RUN_SUPERVISORD:-yes}
 
+# Run any custom scripts
+if [[ -f $HOME/custom/init.sh ]]
+then
+	echo "-- Running Custom Scripts --"
+	# Make the script executable
+	sudo chmod +x $HOME/custom/init.sh
+	# Run the init script
+	$HOME/custom/init.sh
+fi
+
 # If we are activating then run the activate script
 case $ACTIVATE in
   true|yes|y|1)
