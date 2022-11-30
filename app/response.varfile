@@ -1,0 +1,6 @@
+# response file for Burp Suite Pro
+sys.adminRights$Boolean=true
+sys.installationDir=/home/burp
+sys.languageId=en
+sys.programGroupDisabled$Boolean=false
+sys.symlinkDir=/usr/local/bin
