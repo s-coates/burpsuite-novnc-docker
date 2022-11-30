@@ -1,0 +1,65 @@
+version: '2'
+services:
+  # activate burpsuite in a container - this is used to create the prefs.xml which is then copied into the host burpsuite folder
+  activate:
+    build: .
+    cap_add:
+    - SYS_PTRACE
+    security_opt:
+    - seccomp:unconfined
+    - apparmor=unconfined
+    environment:
+    - RUN_NOVNC=no
+    - ACTIVATE=yes
+    privileged: true
+    platform: linux/arm64
+  # create a headless rest container
+  rest:
+    build: .
+    cap_add:
+    - SYS_PTRACE
+    security_opt:
+    - seccomp:unconfined
+    - apparmor=unconfined
+    environment:
+    - RUN_NOVNC=no
+    - RUN_SUPERVISORD=yes
+    privileged: true
+    platform: linux/arm64
+    ports:
+      - 1337:1337
+      # proxy listener
+      - 8080:8080
+    expose:
+      - 1337
+      - 8080
+  # create a novnc container
+  novnc:
+    build: .
+    cap_add:
+    - SYS_PTRACE
+    security_opt:
+    - seccomp:unconfined
+    - apparmor=unconfined
+    environment:
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=968
+      - RUN_NOVNC=yes
+    privileged: true
+    platform: linux/arm64
+    ports:
+      # novnc
+      - 8085:8085
+      # webhook listener
+      - 8090:8030
+      # proxy listener
+      - 8080:8080
+      # rest-api
+      - 1337:1337
+    expose:
+      - 1337
+      - 8080
+    networks:
+      - x11
+networks:
+  x11:
